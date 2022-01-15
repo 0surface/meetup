@@ -14,7 +14,7 @@ function App() {
         <Route path="/new-meetup">
           <NewMeetupPage />
         </Route>
-        <Route path="/favourites">
+        <Route path="/favorites">
           <FavoritesPage />
         </Route>
       </Switch>

@@ -1,7 +1,27 @@
-import React from 'react'
+import { useContext, useEffect } from 'react'
+import FavoritesContext from '../store/favorites-context'
+import MeetupList from '../components/meetups/MeetupList'
 
 const FavouritesPage = () => {
-  return <div>Favourites page</div>
+  const favoritesCtx = useContext(FavoritesContext)
+
+  let content
+  if (favoritesCtx.favorites.length === 0) {
+    content = <p>You go no favorites yet. Start adding some?</p>
+  } else {
+    content = <MeetupList meetups={favoritesCtx.favorites} />
+  }
+
+  useEffect(() => {
+    console.log(favoritesCtx.favorites)
+  }, [])
+
+  return (
+    <section>
+      <h1>My Favorites</h1>
+      {content}
+    </section>
+  )
 }
 
 export default FavouritesPage
