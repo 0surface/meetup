@@ -1,10 +1,11 @@
-import React from 'react'
+import { useHistory } from 'react-router-dom'
 import NewMeetupform from '../components/meetups/New MeetupForm'
 
 const NewMeetupPage = () => {
   const { REACT_APP_FIREBASEAPIURL } = process.env
+  const history = useHistory()
 
-  const addMeetupHandler = (meetupData) => {
+  const addMeetupHandler = async (meetupData) => {
     let postUrl = REACT_APP_FIREBASEAPIURL + '/meetups.json'
 
     fetch(postUrl, {
@@ -14,6 +15,8 @@ const NewMeetupPage = () => {
         'content-type': 'application/json',
       },
     })
+
+    await history.replace('/')
   }
 
   return (
