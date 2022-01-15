@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react'
 import MeetupList from '../components/meetups/MeetupList'
+const { REACT_APP_FIREBASEAPIURL } = process.env
 
 const DUMMY_DATA = [
   {
@@ -21,11 +23,45 @@ const DUMMY_DATA = [
   },
 ]
 
+async function getData() {
+  // const response = await fetch(REACT_APP_FIREBASEAPIURL)
+  // const data = await response.json()
+  // return data
+}
+
 const AllmeetupsPage = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [loadedMeetups, setLoadedMeetups] = useState([])
+  useEffect(() => {
+    setIsLoading(true)
+    fetch(REACT_APP_FIREBASEAPIURL + '/meetups.json', {
+      mode: 'cors',
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        const meetups = []
+        for (const key in data) {
+          const meetup = { id: key, ...data[key] }
+          meetups.push(meetup)
+        }
+        setIsLoading(false)
+        setLoadedMeetups(meetups)
+      })
+  }, [])
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading ...</p>
+      </section>
+    )
+  }
   return (
     <section>
       <h1>All Meetups page</h1>
-      <MeetupList meetups={DUMMY_DATA} />
+      <MeetupList meetups={loadedMeetups} />
 
       <ul>
         {DUMMY_DATA.map((meetup) => {
