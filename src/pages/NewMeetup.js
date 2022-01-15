@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
+import NewMeetupform from '../components/meetups/New MeetupForm'
 
 const NewMeetupPage = () => {
-    return (
-        <div>
-            NewMeetup Page
-        </div>
-    );
+  return (
+    <section>
+      <h1>Add New Meetup</h1>
+      <NewMeetupform />
+    </section>
+  )
 }
 
-export default NewMeetupPage;
+export default NewMeetupPage
